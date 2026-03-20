@@ -163,7 +163,6 @@ export function createInitialState() {
         additionalNotes:
           'Personnel may request clarifications on the business concept during the review stage.',
         imageReference: 'https://picsum.photos/seed/programfinder-green-livelihood/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-green-livelihood/1200/720',
         imageName: 'green-livelihood-social-card.jpg',
         requirements: ['Valid ID', 'Barangay Certificate', 'Business Concept Note'],
         eligibility: ['Resident of Malolos City', 'Ages 18 and above', 'No existing city business grant'],
@@ -200,7 +199,6 @@ export function createInitialState() {
         additionalNotes:
           'Medical follow-up schedules are coordinated after final approval.',
         imageReference: 'https://picsum.photos/seed/programfinder-senior-wellness/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-senior-wellness/1200/720',
         imageName: 'senior-wellness-banner.jpeg',
         requirements: ['Senior Citizen ID', 'Medical Clearance', 'Proof of Residency'],
         eligibility: ['Registered senior citizen', 'Resident of participating municipality', 'Needs periodic treatment'],
@@ -237,7 +235,6 @@ export function createInitialState() {
         additionalNotes:
           'Interview schedules will be issued after the initial document screening.',
         imageReference: 'https://picsum.photos/seed/programfinder-women-enterprise/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-women-enterprise/1200/720',
         imageName: 'women-entrepreneur-promo-asset.png',
         requirements: ['Valid ID', 'Project Proposal', 'Community Endorsement'],
         eligibility: ['Bulacan resident', 'Women-led enterprise', 'Business operating below 2 years'],
@@ -274,7 +271,6 @@ export function createInitialState() {
         additionalNotes:
           'Personnel may request follow-up proof of guardianship or household income during evaluation.',
         imageReference: 'https://picsum.photos/seed/programfinder-malolos-education/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-malolos-education/1200/720',
         imageName: 'malolos-education-voucher.jpg',
         requirements: ['Valid ID', 'Certificate of Enrollment', 'Proof of Residency'],
         eligibility: ['Resident of Malolos City', 'Currently enrolled in senior high or college', 'Needs financial support for school expenses'],
@@ -311,7 +307,6 @@ export function createInitialState() {
         additionalNotes:
           'Batch schedules are released after screening and may be staggered depending on trainer availability.',
         imageReference: 'https://picsum.photos/seed/programfinder-malolos-skills/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-malolos-skills/1200/720',
         imageName: 'malolos-skills-reentry.jpg',
         requirements: ['Valid ID', 'Barangay Endorsement', 'Employment Background Note'],
         eligibility: ['Resident of Malolos City', 'Unemployed or underemployed', 'Available to attend the city training schedule'],
@@ -348,7 +343,6 @@ export function createInitialState() {
         additionalNotes:
           'Shortlisted applicants may be invited for a concept validation meeting with personnel.',
         imageReference: 'https://picsum.photos/seed/programfinder-malolos-women-business/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-malolos-women-business/1200/720',
         imageName: 'malolos-women-business.jpg',
         requirements: ['Valid ID', 'Proof of Residency', 'Business Concept Summary'],
         eligibility: ['Resident of Malolos City', 'Women-led startup or home enterprise', 'No overlapping city enterprise grant'],
@@ -385,7 +379,6 @@ export function createInitialState() {
         additionalNotes:
           'This listing is kept for historical reference and previous cycle monitoring.',
         imageReference: 'https://picsum.photos/seed/programfinder-malolos-homecare/1200/720',
-        image: 'https://picsum.photos/seed/programfinder-malolos-homecare/1200/720',
         imageName: 'malolos-homecare-relief.jpg',
         requirements: ['Senior Citizen ID', 'Caregiver Note', 'Proof of Residency'],
         eligibility: ['Resident of Malolos City', 'Household with active senior care needs', 'Willing to undergo case validation'],

@@ -30,6 +30,61 @@ function readStorage(key, fallback) {
   }
 }
 
+function sanitizeTransientAsset(value) {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  const normalized = value.trim();
+  if (!normalized) {
+    return '';
+  }
+
+  if (normalized.startsWith('data:') || normalized.startsWith('blob:')) {
+    return '';
+  }
+
+  return normalized;
+}
+
+function createPersistableState(state) {
+  return {
+    ...state,
+    programs: (state.programs || []).map((program) => ({
+      ...program,
+      imageReference: sanitizeTransientAsset(program.imageReference),
+      image: sanitizeTransientAsset(program.image),
+    })),
+    documents: (state.documents || []).map((document) => ({
+      ...document,
+      fileUrl: sanitizeTransientAsset(document.fileUrl),
+    })),
+    applications: (state.applications || []).map((application) => ({
+      ...application,
+      requirementFiles: (application.requirementFiles || []).map((file) => ({
+        ...file,
+        fileUrl: sanitizeTransientAsset(file.fileUrl),
+      })),
+    })),
+  };
+}
+
+function writeStorage(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    if (error?.name === 'QuotaExceededError') {
+      console.warn(`Unable to persist ${key}: storage quota exceeded.`, error);
+      return false;
+    }
+
+    console.warn(`Unable to persist ${key}.`, error);
+    return false;
+  }
+
+  return true;
+}
+
 function getProgramById(programs, programId) {
   return programs.find((program) => program.id === programId);
 }
@@ -55,6 +110,47 @@ function computeProfileCompletion(profile) {
   ];
   const filled = fields.filter(Boolean).length;
   return Math.max(40, Math.round((filled / fields.length) * 100));
+}
+
+function calculateApplicantAge(birthDateValue, referenceDate = new Date()) {
+  if (!birthDateValue) {
+    return null;
+  }
+
+  const birthDate = new Date(`${birthDateValue}T12:00:00`);
+  if (Number.isNaN(birthDate.getTime())) {
+    return null;
+  }
+
+  let age = referenceDate.getFullYear() - birthDate.getFullYear();
+  const monthDelta = referenceDate.getMonth() - birthDate.getMonth();
+
+  if (monthDelta < 0 || (monthDelta === 0 && referenceDate.getDate() < birthDate.getDate())) {
+    age -= 1;
+  }
+
+  return age >= 0 ? age : null;
+}
+
+function buildApplicantSnapshot(profile, session) {
+  const age = calculateApplicantAge(profile?.birthDate);
+
+  return {
+    fullName: String(profile?.fullName || session?.name || '').trim(),
+    email: String(profile?.email || session?.email || '').trim(),
+    phone: String(profile?.phone || '').trim(),
+    municipality: String(profile?.municipality || session?.municipality || '').trim(),
+    barangay: String(profile?.barangay || '').trim(),
+    address: String(profile?.address || '').trim(),
+    birthDate: String(profile?.birthDate || '').trim(),
+    age,
+    civilStatus: String(profile?.civilStatus || '').trim(),
+    school: String(profile?.school || '').trim(),
+    course: String(profile?.course || '').trim(),
+    householdIncome: String(profile?.householdIncome || '').trim(),
+    specialCategory: String(profile?.specialCategory || '').trim(),
+    profileCompleteness: Number(profile?.completeness) || computeProfileCompletion(profile || {}),
+  };
 }
 
 function createSessionPayload(account) {
@@ -320,11 +416,11 @@ export function usePrototypeApp() {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.session, JSON.stringify(session));
+    writeStorage(STORAGE_KEYS.session, session);
   }, [session]);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(data));
+    writeStorage(STORAGE_KEYS.state, createPersistableState(data));
   }, [data]);
 
   useEffect(() => {
@@ -611,6 +707,13 @@ export function usePrototypeApp() {
       };
 
       if (existingDocument) {
+        if (
+          existingDocument.fileUrl &&
+          existingDocument.fileUrl.startsWith('blob:') &&
+          existingDocument.fileUrl !== payload.fileUrl
+        ) {
+          URL.revokeObjectURL(existingDocument.fileUrl);
+        }
         Object.assign(existingDocument, nextDocument);
       } else {
         draft.documents.unshift(nextDocument);
@@ -668,10 +771,11 @@ export function usePrototypeApp() {
 
     setData((current) => {
       const draft = clone(current);
+      const applicantSnapshot = buildApplicantSnapshot(draft.applicantProfile, session);
       draft.applications.unshift({
         id: makeId('application'),
-        applicantEmail: session.email,
-        applicantName: session.name,
+        applicantEmail: applicantSnapshot.email || session.email,
+        applicantName: applicantSnapshot.fullName || session.name,
         programId: selectedProgram.id,
         office: selectedProgram.office,
         status: 'Submitted',
@@ -679,6 +783,7 @@ export function usePrototypeApp() {
         completeness: 100,
         priority: 'Medium',
         notes: draft.composer.notes || 'Submitted through the applicant dashboard.',
+        applicantSnapshot,
         documents: [...draft.composer.attachedDocs],
         requirementFiles: selectedProgram.requirements
           .map((requirement) => buildRequirementFileSnapshot(draft.documents, session.email, requirement))

@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { DetailItem, EmptyState, FormField, SectionHeading, SelectField, StatusPill } from '../../../shared/components/ui';
 import { getOfficeApplications, getOfficePrograms, getProgramById } from './helpers';
+import {
+  getProgramIllustrationSource,
+  getProgramPhotoSource,
+  getProgramSurfaceLabel,
+  getProgramVisualTheme,
+} from '../../applicant/screens/helpers';
 
 const TABS = [
   { key: 'submitted', label: 'Submissions' },
@@ -101,6 +107,126 @@ function ModalShell({ title, text, onClose, children, footer }) {
   );
 }
 
+function QueueChip({ children, tone = 'neutral' }) {
+  const tones = {
+    neutral: { background: 'rgba(18,32,25,.06)', color: '#4a6356' },
+    accent: { background: 'rgba(30,125,77,.1)', color: '#1e7d4d' },
+    soft: { background: 'rgba(255,255,255,.72)', color: '#24473a' },
+  };
+  const styleTone = tones[tone] || tones.neutral;
+
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        padding: '4px 8px',
+        borderRadius: 999,
+        background: styleTone.background,
+        color: styleTone.color,
+        fontSize: 10.5,
+        fontWeight: 700,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ProgramArtwork({ program, height = 88 }) {
+  const photoSource = getProgramPhotoSource(program);
+  const illustrationSource = getProgramIllustrationSource(program);
+  const [useIllustration, setUseIllustration] = useState(!photoSource);
+  const theme = getProgramVisualTheme(program);
+
+  useEffect(() => {
+    setUseIllustration(!photoSource);
+  }, [photoSource, program?.id]);
+
+  const visualSource = useIllustration ? illustrationSource : photoSource;
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        height,
+        overflow: 'hidden',
+        background: theme.surface,
+        borderBottom: `1px solid ${theme.border}`,
+      }}
+    >
+      <img
+        alt={program?.title || 'Program artwork'}
+        loading="lazy"
+        onError={() => setUseIllustration(true)}
+        src={visualSource}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: useIllustration
+            ? 'linear-gradient(180deg, rgba(8,16,11,.08) 0%, rgba(8,16,11,.22) 100%)'
+            : 'linear-gradient(180deg, rgba(8,16,11,.06) 0%, rgba(8,16,11,.55) 100%)',
+        }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          padding: '10px 12px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+          <span
+            style={{
+              display: 'inline-flex',
+              maxWidth: '68%',
+              padding: '4px 9px',
+              borderRadius: 999,
+              background: 'rgba(255,255,255,.18)',
+              color: theme.text,
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: '.05em',
+              textTransform: 'uppercase',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            {getProgramSurfaceLabel(program)}
+          </span>
+          <span
+            style={{
+              display: 'inline-flex',
+              padding: '4px 9px',
+              borderRadius: 999,
+              background: 'rgba(8,16,11,.26)',
+              color: '#fff',
+              fontSize: 10,
+              fontWeight: 700,
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            {program?.municipality || 'Province-wide'}
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gap: 4 }}>
+          <span style={{ color: theme.mutedText, fontSize: 10.5, fontWeight: 600 }}>
+            {program?.office || 'Program office'}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ApplicationManagementScreen({ session, data, actions }) {
   const officePrograms = [...getOfficePrograms(data, session)].sort((a, b) => a.title.localeCompare(b.title));
   const applications = [...getOfficeApplications(data, session)]
@@ -116,7 +242,7 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
-  const [selectedProgramId, setSelectedProgramId] = useState(officePrograms[0]?.id || null);
+  const [selectedProgramId, setSelectedProgramId] = useState(null);
   const [reviewingApplicationId, setReviewingApplicationId] = useState(null);
   const [decisionNote, setDecisionNote] = useState('');
 
@@ -146,12 +272,8 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
   });
 
   useEffect(() => {
-    if (!filteredPrograms.length) {
+    if (selectedProgramId && !filteredPrograms.some((program) => program.id === selectedProgramId)) {
       setSelectedProgramId(null);
-      return;
-    }
-    if (!filteredPrograms.some((program) => program.id === selectedProgramId)) {
-      setSelectedProgramId(filteredPrograms[0].id);
     }
   }, [filteredPrograms, selectedProgramId]);
 
@@ -169,7 +291,21 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
     };
   }, [reviewingApplicationId]);
 
-  const selectedProgram = filteredPrograms.find((program) => program.id === selectedProgramId) || filteredPrograms[0] || null;
+  useEffect(() => {
+    if (!selectedProgramId) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedProgramId(null);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProgramId]);
+
+  const selectedProgram = filteredPrograms.find((program) => program.id === selectedProgramId) || null;
   const programApplications = selectedProgram ? filteredApplications.filter((application) => application.programId === selectedProgram.id) : [];
   const reviewingApplication = filteredApplications.find((application) => application.id === reviewingApplicationId) || null;
 
@@ -207,6 +343,7 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
 
   const pendingDecisions = applications.filter((application) => !['Approved', 'Rejected'].includes(application.status)).length;
   const finalDecisions = applications.filter((application) => ['Approved', 'Rejected'].includes(application.status)).length;
+  const closeProgramModal = () => setSelectedProgramId(null);
   const closeReviewModal = () => setReviewingApplicationId(null);
 
   return (
@@ -229,24 +366,30 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
         .personnel-app-search-field{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.8rem;padding:.95rem 1rem;background:rgba(255,255,255,.88)}
         .personnel-app-search-icon{width:1.1rem;height:1.1rem;color:var(--pf-accent-dark)}
         .personnel-app-search-field input{border:none;outline:none;background:transparent;color:var(--pf-ink);font:inherit;font-size:1rem}
-        .personnel-app-panel{padding:1rem 1.05rem}
-        .personnel-app-submitted-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+        .personnel-app-panel{padding:1.1rem 1.15rem}
+        .personnel-app-submitted-grid{grid-template-columns:1fr;align-items:start}
         .personnel-app-scroll{max-height:34rem;overflow:auto;padding-right:.35rem}
         .personnel-app-scroll::-webkit-scrollbar{width:10px}
         .personnel-app-scroll::-webkit-scrollbar-thumb{background:rgba(24,111,67,.18);border-radius:999px}
         .personnel-app-table{gap:.85rem}
         .personnel-app-head,.personnel-app-row{display:grid;gap:1rem;align-items:start}
-        .personnel-app-table.programs .personnel-app-head,.personnel-app-table.programs .personnel-app-row{grid-template-columns:minmax(0,1.6fr) minmax(150px,.9fr) minmax(170px,1fr) minmax(90px,.55fr) 110px 92px}
+        .personnel-app-table.programs .personnel-app-head,.personnel-app-table.programs .personnel-app-row{grid-template-columns:minmax(0,2fr) minmax(220px,1.05fr) minmax(120px,.65fr) minmax(210px,.95fr) 96px}
         .personnel-app-table.submissions .personnel-app-head,.personnel-app-table.submissions .personnel-app-row{grid-template-columns:minmax(0,1.25fr) minmax(110px,.7fr) minmax(120px,.8fr) minmax(90px,.6fr) 110px 92px}
         .personnel-app-table.records .personnel-app-head,.personnel-app-table.records .personnel-app-row,.personnel-app-table.decisions .personnel-app-head,.personnel-app-table.decisions .personnel-app-row{grid-template-columns:minmax(0,1.2fr) minmax(0,1.1fr) minmax(110px,.7fr) minmax(0,1.15fr) minmax(120px,.7fr)}
         .personnel-app-head{padding:0 .35rem;font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
         .personnel-app-scroll .personnel-app-head{position:sticky;top:0;z-index:2;padding:.35rem;border-radius:16px;background:linear-gradient(180deg,rgba(240,245,239,.98) 0%,rgba(240,245,239,.9) 100%)}
         .personnel-app-row{padding:1rem 1.05rem;background:linear-gradient(180deg,rgba(248,251,247,.98) 0%,rgba(239,244,238,.94) 100%)}
+        .personnel-app-row.is-selected{border-color:rgba(24,111,67,.18);box-shadow:0 14px 30px rgba(30,125,77,.1)}
         .personnel-app-row strong,.personnel-app-note strong,.personnel-app-history-item strong,.personnel-app-requirement-copy strong,.personnel-app-requirement-file strong{display:block;margin-bottom:.2rem}
         .personnel-app-row p,.personnel-app-row small,.personnel-app-note p,.personnel-app-history-item p,.personnel-app-history-item small,.personnel-app-requirement-copy p,.personnel-app-requirement-file p{margin:0;line-height:1.5}
         .personnel-app-note{padding:1rem 1.05rem;background:rgba(30,125,77,.06)}
         .personnel-app-action-cell{display:flex;justify-content:flex-end}
         .personnel-app-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .personnel-app-program-cell{display:grid;gap:.2rem}
+        .personnel-app-program-main{display:grid;grid-template-columns:112px minmax(0,1fr);gap:1rem;align-items:start}
+        .personnel-app-program-thumb{border-radius:16px;overflow:hidden;border:1px solid rgba(24,111,67,.1)}
+        .personnel-app-program-name{font-size:.98rem;line-height:1.22}
+        .personnel-app-program-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.15rem}
         .personnel-app-modal-backdrop{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:1.25rem;background:rgba(10,20,15,.5);backdrop-filter:blur(10px)}
         .personnel-app-modal{width:min(100%,60rem);max-height:min(92vh,60rem);overflow:auto;border-radius:28px;background:linear-gradient(180deg,rgba(252,253,251,.99) 0%,rgba(240,245,239,.98) 100%);border:1px solid rgba(18,32,25,.08);box-shadow:0 28px 90px rgba(10,20,15,.22)}
         .personnel-app-modal-header,.personnel-app-modal-footer{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.2rem 1.35rem}
@@ -259,7 +402,7 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
         .personnel-app-requirement-check input{width:1rem;height:1rem;accent-color:var(--pf-accent)}
         .personnel-app-file-link{display:inline-flex;align-items:center;justify-content:center;padding:.68rem 1rem;border-radius:999px;background:rgba(24,111,67,.1);color:var(--accent-deep);font-weight:800;text-decoration:none}
         @media (max-width:1180px){.personnel-app-metrics,.personnel-app-toolbar,.personnel-app-submitted-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.personnel-app-table.programs .personnel-app-head,.personnel-app-table.programs .personnel-app-row,.personnel-app-table.submissions .personnel-app-head,.personnel-app-table.submissions .personnel-app-row,.personnel-app-table.records .personnel-app-head,.personnel-app-table.records .personnel-app-row,.personnel-app-table.decisions .personnel-app-head,.personnel-app-table.decisions .personnel-app-row{grid-template-columns:repeat(2,minmax(0,1fr))}.personnel-app-action-cell{justify-content:flex-start}}
-        @media (max-width:820px){.personnel-app-tabs,.personnel-app-metrics,.personnel-app-toolbar,.personnel-app-submitted-grid,.personnel-app-table.programs .personnel-app-head,.personnel-app-table.programs .personnel-app-row,.personnel-app-table.submissions .personnel-app-head,.personnel-app-table.submissions .personnel-app-row,.personnel-app-table.records .personnel-app-head,.personnel-app-table.records .personnel-app-row,.personnel-app-table.decisions .personnel-app-head,.personnel-app-table.decisions .personnel-app-row,.personnel-app-requirement-row{grid-template-columns:1fr}.personnel-app-head{display:none}.personnel-app-modal-backdrop{padding:.75rem}.personnel-app-modal-header,.personnel-app-modal-footer{flex-direction:column;align-items:stretch}}
+        @media (max-width:820px){.personnel-app-tabs,.personnel-app-metrics,.personnel-app-toolbar,.personnel-app-submitted-grid,.personnel-app-table.programs .personnel-app-head,.personnel-app-table.programs .personnel-app-row,.personnel-app-table.submissions .personnel-app-head,.personnel-app-table.submissions .personnel-app-row,.personnel-app-table.records .personnel-app-head,.personnel-app-table.records .personnel-app-row,.personnel-app-table.decisions .personnel-app-head,.personnel-app-table.decisions .personnel-app-row,.personnel-app-requirement-row,.personnel-app-program-main{grid-template-columns:1fr}.personnel-app-head{display:none}.personnel-app-modal-backdrop{padding:.75rem}.personnel-app-modal-header,.personnel-app-modal-footer{flex-direction:column;align-items:stretch}}
       `}</style>
 
       <div className="personnel-app-shell">
@@ -291,101 +434,65 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
         </div>
 
         {activeTab === 'submitted' ? (
-          <div className="personnel-app-submitted-grid">
-            <div className="personnel-app-panel">
-              <SectionHeading eyebrow="Program queue" title="Program Listings" text="Listings with office submissions." />
-              {filteredPrograms.length ? (
-                <div className="personnel-app-scroll">
-                  <div className="personnel-app-table programs">
-                    <div className="personnel-app-head">
-                      <span>Program</span>
-                      <span>Type</span>
-                      <span>Window</span>
-                      <span>Volume</span>
-                      <span>Status</span>
-                      <span>Action</span>
-                    </div>
-                    {filteredPrograms.map((program) => {
-                      const related = filteredApplications.filter((application) => application.programId === program.id);
-                      return (
-                        <article className="personnel-app-row" key={program.id}>
-                          <div>
-                            <strong>{program.title}</strong>
-                            <p>{program.category} | {program.sector}</p>
-                          </div>
-                          <div>
-                            <strong>{program.programType || 'Unspecified'}</strong>
-                            <small>{program.municipality}</small>
-                          </div>
-                          <div>
-                            <strong>{formatWindow(program)}</strong>
-                            <small>{formatDate(program.deadline)}</small>
-                          </div>
-                          <div>
-                            <strong>{related.length}</strong>
-                            <small>{related.filter((application) => !['Approved', 'Rejected'].includes(application.status)).length} active</small>
-                          </div>
-                          <div><StatusPill status={program.status} /></div>
-                          <div className="personnel-app-action-cell">
-                            <button className="secondary-button" onClick={() => setSelectedProgramId(program.id)} type="button">View</button>
-                          </div>
-                        </article>
-                      );
-                    })}
+          <div className="personnel-app-panel">
+            <SectionHeading eyebrow="Program queue" title="Program Listings" text="Listings with office submissions, queue counts, and review context. Open each row to view applicant submissions in a modal." />
+            {filteredPrograms.length ? (
+              <div className="personnel-app-scroll">
+                <div className="personnel-app-table programs">
+                  <div className="personnel-app-head">
+                    <span>Program</span>
+                    <span>Window</span>
+                    <span>Queue</span>
+                    <span>Type</span>
+                    <span>Action</span>
                   </div>
+                  {filteredPrograms.map((program) => {
+                    const related = filteredApplications.filter((application) => application.programId === program.id);
+                    const pendingCountForProgram = related.filter((application) => !['Approved', 'Rejected'].includes(application.status)).length;
+                    const isSelected = selectedProgramId === program.id;
+                    return (
+                      <article className={`personnel-app-row ${isSelected ? 'is-selected' : ''}`} key={program.id}>
+                        <div className="personnel-app-program-main">
+                          <div className="personnel-app-program-thumb">
+                            <ProgramArtwork program={program} height={68} />
+                          </div>
+                          <div className="personnel-app-program-cell">
+                            <strong className="personnel-app-program-name">{program.title}</strong>
+                            <p className="personnel-app-clamp">
+                              {program.summary || `${program.category} support tailored to ${program.sector}.`}
+                            </p>
+                            <div className="personnel-app-program-tags">
+                              <QueueChip>{program.category}</QueueChip>
+                              <QueueChip tone="accent">{program.sector}</QueueChip>
+                              <StatusPill status={program.status} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="personnel-app-program-cell">
+                          <strong>{formatWindow(program)}</strong>
+                          <small>Deadline {formatDate(program.deadline)}</small>
+                        </div>
+                        <div className="personnel-app-program-cell">
+                          <strong>{related.length} total</strong>
+                          <small>{pendingCountForProgram} still in queue</small>
+                        </div>
+                        <div className="personnel-app-program-cell">
+                          <strong>{program.programType || 'Unspecified'}</strong>
+                          <small>{program.municipality}</small>
+                        </div>
+                        <div className="personnel-app-action-cell">
+                          <button className="secondary-button" onClick={() => setSelectedProgramId(program.id)} type="button">
+                            View
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
-              ) : (
-                <EmptyState title="No programs matched" text="Try a different filter." />
-              )}
-            </div>
-
-            <div className="personnel-app-panel">
-              <SectionHeading eyebrow={selectedProgram?.title || 'Program'} title="Applicant Submissions" text="Review records for the selected listing." />
-              {selectedProgram ? (
-                programApplications.length ? (
-                  <div className="personnel-app-scroll">
-                    <div className="personnel-app-table submissions">
-                      <div className="personnel-app-head">
-                        <span>Applicant</span>
-                        <span>Submitted</span>
-                        <span>Files</span>
-                        <span>Priority</span>
-                        <span>Status</span>
-                        <span>Action</span>
-                      </div>
-                      {programApplications.map((application) => (
-                        <article className="personnel-app-row" key={application.id}>
-                          <div>
-                            <strong>{application.applicantName}</strong>
-                            <p>{application.applicantEmail}</p>
-                          </div>
-                          <div>
-                            <strong>{formatDate(application.submittedAt)}</strong>
-                            <small>{application.id}</small>
-                          </div>
-                          <div>
-                            <strong>{application.documents.length} files</strong>
-                            <small>{application.completeness}% ready</small>
-                          </div>
-                          <div>
-                            <strong>{application.priority}</strong>
-                            <small>{application.program?.programType || 'Unspecified'}</small>
-                          </div>
-                          <div><StatusPill status={application.status} /></div>
-                          <div className="personnel-app-action-cell">
-                            <button className="secondary-button" onClick={() => setReviewingApplicationId(application.id)} type="button">View</button>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <EmptyState title="No submissions for this program" text="No records match the current filters." />
-                )
-              ) : (
-                <EmptyState title="No program selected" text="Choose a listing first." />
-              )}
-            </div>
+              </div>
+            ) : (
+              <EmptyState title="No programs matched" text="Try a different filter." />
+            )}
           </div>
         ) : null}
 
@@ -470,6 +577,64 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
         ) : null}
       </div>
 
+      {selectedProgram ? (
+        <ModalShell
+          title={selectedProgram.title}
+          text="Applicant submissions for the selected listing."
+          onClose={closeProgramModal}
+        >
+          <div className="detail-grid">
+            <DetailItem label="Program Type" value={selectedProgram.programType || 'Unspecified'} />
+            <DetailItem label="Status" value={selectedProgram.status || 'Open'} />
+            <DetailItem label="Application Window" value={formatWindow(selectedProgram)} />
+            <DetailItem label="Municipality" value={selectedProgram.municipality || 'Province-wide'} />
+            <DetailItem label="Submissions" value={programApplications.length} />
+            <DetailItem label="Category" value={selectedProgram.category || 'Unspecified'} />
+          </div>
+
+          {programApplications.length ? (
+            <div className="personnel-app-scroll">
+              <div className="personnel-app-table submissions">
+                <div className="personnel-app-head">
+                  <span>Applicant</span>
+                  <span>Submitted</span>
+                  <span>Files</span>
+                  <span>Priority</span>
+                  <span>Status</span>
+                  <span>Action</span>
+                </div>
+                {programApplications.map((application) => (
+                  <article className="personnel-app-row" key={application.id}>
+                    <div>
+                      <strong>{application.applicantName}</strong>
+                      <p>{application.applicantEmail}</p>
+                    </div>
+                    <div>
+                      <strong>{formatDate(application.submittedAt)}</strong>
+                      <small>{application.id}</small>
+                    </div>
+                    <div>
+                      <strong>{application.documents.length} files</strong>
+                      <small>{application.completeness}% ready</small>
+                    </div>
+                    <div>
+                      <strong>{application.priority}</strong>
+                      <small>{application.program?.programType || 'Unspecified'}</small>
+                    </div>
+                    <div><StatusPill status={application.status} /></div>
+                    <div className="personnel-app-action-cell">
+                      <button className="secondary-button" onClick={() => setReviewingApplicationId(application.id)} type="button">View</button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <EmptyState title="No submissions for this program" text="No records match the current filters." />
+          )}
+        </ModalShell>
+      ) : null}
+
       {reviewingApplication ? (
         <ModalShell
           title={reviewingApplication.applicantName}
@@ -491,6 +656,28 @@ export default function ApplicationManagementScreen({ session, data, actions }) 
             <DetailItem label="Files" value={reviewingApplication.documents.length} />
             <DetailItem label="Program Type" value={reviewingApplication.program?.programType || 'Unspecified'} />
           </div>
+
+          {reviewingApplication.applicantSnapshot ? (
+            <div className="personnel-app-note">
+              <strong>Applicant profile snapshot</strong>
+              <div className="detail-grid" style={{ marginTop: '.9rem' }}>
+                <DetailItem label="Full Name" value={reviewingApplication.applicantSnapshot.fullName || reviewingApplication.applicantName} />
+                <DetailItem label="Age" value={reviewingApplication.applicantSnapshot.age !== null && reviewingApplication.applicantSnapshot.age !== undefined ? `${reviewingApplication.applicantSnapshot.age} years old` : 'Not provided'} />
+                <DetailItem label="Birth Date" value={reviewingApplication.applicantSnapshot.birthDate ? formatDate(reviewingApplication.applicantSnapshot.birthDate) : 'Not provided'} />
+                <DetailItem label="Civil Status" value={reviewingApplication.applicantSnapshot.civilStatus || 'Not provided'} />
+                <DetailItem label="Email" value={reviewingApplication.applicantSnapshot.email || reviewingApplication.applicantEmail} />
+                <DetailItem label="Phone" value={reviewingApplication.applicantSnapshot.phone || 'Not provided'} />
+                <DetailItem label="Municipality" value={reviewingApplication.applicantSnapshot.municipality || 'Not provided'} />
+                <DetailItem label="Barangay" value={reviewingApplication.applicantSnapshot.barangay || 'Not provided'} />
+                <DetailItem label="Address" value={reviewingApplication.applicantSnapshot.address || 'Not provided'} />
+                <DetailItem label="School" value={reviewingApplication.applicantSnapshot.school || 'Not provided'} />
+                <DetailItem label="Course" value={reviewingApplication.applicantSnapshot.course || 'Not provided'} />
+                <DetailItem label="Household Income" value={reviewingApplication.applicantSnapshot.householdIncome || 'Not provided'} />
+                <DetailItem label="Special Category" value={reviewingApplication.applicantSnapshot.specialCategory || 'Not provided'} />
+                <DetailItem label="Profile Completion" value={`${reviewingApplication.applicantSnapshot.profileCompleteness || 0}%`} />
+              </div>
+            </div>
+          ) : null}
 
           <div className="personnel-app-note">
             <strong>Applicant note</strong>

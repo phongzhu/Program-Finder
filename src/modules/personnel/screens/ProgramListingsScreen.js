@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { EmptyState, FormField, SectionHeading, SelectField, StatusPill } from '../../../shared/components/ui';
 import { getOfficePrograms } from './helpers';
+import {
+  getProgramIllustrationSource,
+  getProgramPhotoSource,
+  getProgramSurfaceLabel,
+  getProgramVisualTheme,
+} from '../../applicant/screens/helpers';
 
 const STATUS_FILTERS = [
   { label: 'All statuses', value: 'all' },
@@ -122,7 +128,117 @@ function ModalShell({ title, text, onClose, wide = false, footer, children }) {
   );
 }
 
-function ProgramForm({ form, categories, sectors, linkedApplications, onFieldChange, onImageUpload }) {
+function ProgramArtwork({ program, height = 146, rounded = 22, compact = false }) {
+  const photoSource = getProgramPhotoSource(program);
+  const illustrationSource = getProgramIllustrationSource(program);
+  const [useIllustration, setUseIllustration] = useState(!photoSource);
+  const theme = getProgramVisualTheme(program);
+
+  useEffect(() => {
+    setUseIllustration(!photoSource);
+  }, [photoSource, program?.id, program?.title, program?.category, program?.programType, program?.sector]);
+
+  const visualSource = useIllustration ? illustrationSource : photoSource;
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        height,
+        overflow: 'hidden',
+        borderRadius: rounded,
+        background: theme.surface,
+        border: `1px solid ${theme.border}`,
+        boxShadow: compact ? 'none' : '0 16px 34px rgba(18,32,25,.08)',
+      }}
+    >
+      <img
+        alt={program?.title || 'Program artwork'}
+        loading="lazy"
+        onError={() => setUseIllustration(true)}
+        src={visualSource}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: useIllustration
+            ? 'linear-gradient(180deg, rgba(8,16,11,.08) 0%, rgba(8,16,11,.24) 100%)'
+            : 'linear-gradient(180deg, rgba(8,16,11,.06) 0%, rgba(8,16,11,.56) 100%)',
+        }}
+      />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          padding: compact ? '10px 11px' : '14px 15px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
+          <span
+            style={{
+              display: 'inline-flex',
+              padding: compact ? '4px 9px' : '5px 11px',
+              borderRadius: 999,
+              background: 'rgba(255,255,255,.16)',
+              color: theme.text,
+              fontSize: compact ? 10 : 11,
+              fontWeight: 700,
+              letterSpacing: '.05em',
+              textTransform: 'uppercase',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            {getProgramSurfaceLabel(program)}
+          </span>
+          <span
+            style={{
+              display: 'inline-flex',
+              padding: compact ? '4px 9px' : '5px 11px',
+              borderRadius: 999,
+              background: 'rgba(8,16,11,.24)',
+              color: '#fff',
+              fontSize: compact ? 10 : 11,
+              fontWeight: 700,
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            {program?.municipality || 'Province-wide'}
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gap: 2 }}>
+          <strong style={{ color: '#fff', fontSize: compact ? 13 : 17, lineHeight: 1.2 }}>
+            {program?.office || 'Program office'}
+          </strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgramForm({
+  form,
+  categories,
+  sectors,
+  linkedApplications,
+  office,
+  municipality,
+  onFieldChange,
+  onImageUpload,
+}) {
+  const previewProgram = {
+    ...form,
+    office: office || 'Program office',
+    municipality: municipality || 'Province-wide',
+  };
+
   return (
     <div className="personnel-program-form-shell">
       <div className="personnel-program-form-grid">
@@ -140,14 +256,13 @@ function ProgramForm({ form, categories, sectors, linkedApplications, onFieldCha
 
       <div className="personnel-program-upload-grid">
         <div className="personnel-program-preview-card">
-          {form.imageReference ? (
-            <img alt={form.title || 'Program preview'} className="personnel-program-preview-image" src={form.imageReference} />
-          ) : (
-            <div className="personnel-program-preview-placeholder">
-              <strong>No image uploaded yet</strong>
-              <p>Upload the applicant-facing cover image for this program.</p>
-            </div>
-          )}
+          <ProgramArtwork program={previewProgram} height={240} rounded={0} />
+          <div className="personnel-program-preview-caption">
+            <strong>{form.imageReference ? 'Applicant-facing cover preview' : 'Generated fallback preview'}</strong>
+            <p>
+              The listing will use your uploaded image when available. Otherwise it falls back to the same category-based visual style shown in Search Programs.
+            </p>
+          </div>
         </div>
 
         <label className="personnel-program-upload-field">
@@ -316,10 +431,8 @@ export default function ProgramListingsScreen({ session, data, actions }) {
         .personnel-program-table-row{background:linear-gradient(180deg, rgba(248,251,247,.98) 0%, rgba(239,244,238,.94) 100%)}
         .personnel-program-table-row strong,.personnel-program-upload-field strong,.personnel-program-preview-placeholder strong{display:block;margin-bottom:.2rem}
         .personnel-program-table-row p,.personnel-program-table-row small,.personnel-program-preview-placeholder p{margin:0;line-height:1.5}
-        .personnel-program-table-program{display:grid;grid-template-columns:72px minmax(0,1fr);gap:.85rem;align-items:start}
-        .personnel-program-table-thumb{width:72px;height:72px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg, rgba(30,125,77,.24) 0%, rgba(18,32,25,.16) 100%);border:1px solid rgba(24,111,67,.08)}
-        .personnel-program-table-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-        .personnel-program-table-thumb.is-empty{display:grid;place-items:center;color:var(--pf-accent-dark);font-size:.72rem;font-weight:800;text-align:center;padding:.5rem}
+        .personnel-program-table-program{display:grid;grid-template-columns:190px minmax(0,1fr);gap:.95rem;align-items:start}
+        .personnel-program-table-thumb{width:190px;max-width:100%}
         .personnel-program-table-action{display:flex;justify-content:flex-end}
         .personnel-program-modal-backdrop{position:fixed;inset:0;z-index:85;display:grid;place-items:center;padding:1.25rem;background:rgba(10,20,15,.5);backdrop-filter:blur(10px)}
         .personnel-program-modal{width:min(100%,50rem);max-height:min(92vh,60rem);overflow:auto;border-radius:28px;background:linear-gradient(180deg, rgba(252,253,251,.99) 0%, rgba(240,245,239,.98) 100%);border:1px solid rgba(18,32,25,.08);box-shadow:0 28px 90px rgba(10,20,15,.22)}
@@ -337,8 +450,9 @@ export default function ProgramListingsScreen({ session, data, actions }) {
         .personnel-program-upload-grid{grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);align-items:stretch}
         .personnel-program-preview-card,.personnel-program-upload-field{display:grid;gap:.75rem}
         .personnel-program-preview-card{min-height:15rem;padding:0;overflow:hidden}
-        .personnel-program-preview-image{width:100%;height:100%;object-fit:cover;display:block}
-        .personnel-program-preview-placeholder{display:grid;align-content:center;justify-items:center;min-height:15rem;padding:1.25rem;text-align:center;background:linear-gradient(135deg, rgba(30,125,77,.12) 0%, rgba(18,32,25,.08) 100%)}
+        .personnel-program-preview-caption{display:grid;gap:.25rem;padding:1rem 1.05rem;background:rgba(255,255,255,.96)}
+        .personnel-program-preview-caption strong{display:block}
+        .personnel-program-preview-caption p{margin:0;color:var(--pf-ink-muted);line-height:1.55}
         .personnel-program-upload-field input[type="file"]{width:100%;padding:.9rem;border-radius:16px;border:1px dashed rgba(24,111,67,.22);background:rgba(255,255,255,.92)}
         @media (max-width:1180px){.personnel-program-metrics,.personnel-program-toolbar,.personnel-program-form-grid,.personnel-program-upload-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.personnel-program-table-head,.personnel-program-table-row{grid-template-columns:repeat(2,minmax(0,1fr))}.personnel-program-table-action{justify-content:flex-start}}
         @media (max-width:820px){.personnel-program-metrics,.personnel-program-toolbar,.personnel-program-form-grid,.personnel-program-upload-grid,.personnel-program-table-head,.personnel-program-table-row,.personnel-program-table-program{grid-template-columns:1fr}.personnel-program-table-head{display:none}.personnel-program-modal-backdrop{padding:.75rem}.personnel-program-modal-header,.personnel-program-modal-footer{flex-direction:column;align-items:stretch}}
@@ -371,7 +485,7 @@ export default function ProgramListingsScreen({ session, data, actions }) {
 
           <div className="personnel-program-note">
             <strong>{programs.length} seeded office listings available</strong>
-            <p>This office already includes placeholder program rows with real image URLs so the table, modals, and applicant-facing preview data are easier to evaluate.</p>
+            <p>Each listing now previews the same applicant-facing visual banner style used in Search Programs, with uploaded covers overriding the generated fallback artwork.</p>
           </div>
 
           {filteredPrograms.length ? (
@@ -388,8 +502,8 @@ export default function ProgramListingsScreen({ session, data, actions }) {
               {filteredPrograms.map((program) => (
                 <article className="personnel-program-table-row" key={program.id}>
                   <div className="personnel-program-table-program">
-                    <div className={`personnel-program-table-thumb ${program.imageReference ? '' : 'is-empty'}`}>
-                      {program.imageReference ? <img alt={program.title} src={program.imageReference} /> : <span>No image</span>}
+                    <div className="personnel-program-table-thumb">
+                      <ProgramArtwork compact height={96} program={program} />
                     </div>
                     <div>
                       <strong>{program.title}</strong>
@@ -441,7 +555,16 @@ export default function ProgramListingsScreen({ session, data, actions }) {
             </>
           }
         >
-          <ProgramForm categories={categoryOptions} sectors={sectorOptions} form={form} linkedApplications={0} onFieldChange={onFieldChange} onImageUpload={onImageUpload} />
+          <ProgramForm
+            categories={categoryOptions}
+            sectors={sectorOptions}
+            form={form}
+            linkedApplications={0}
+            office={session.office}
+            municipality={session.municipality}
+            onFieldChange={onFieldChange}
+            onImageUpload={onImageUpload}
+          />
         </ModalShell>
       ) : null}
 
@@ -470,7 +593,16 @@ export default function ProgramListingsScreen({ session, data, actions }) {
             </>
           }
         >
-          <ProgramForm categories={categoryOptions} sectors={sectorOptions} form={form} linkedApplications={selectedProgramApplications} onFieldChange={onFieldChange} onImageUpload={onImageUpload} />
+          <ProgramForm
+            categories={categoryOptions}
+            sectors={sectorOptions}
+            form={form}
+            linkedApplications={selectedProgramApplications}
+            office={selectedProgram.office || session.office}
+            municipality={selectedProgram.municipality || session.municipality}
+            onFieldChange={onFieldChange}
+            onImageUpload={onImageUpload}
+          />
         </ModalShell>
       ) : null}
     </>
