@@ -28,6 +28,10 @@ export default function ApplicantProgramViewScreen({ session, data, actions, nav
   return (
     <div className="content-grid">
       <div className="section-card section-card-wide">
+        <div style={{ width: '100%', height: 200, overflow: 'hidden', borderRadius: 8, marginBottom: 14 }}>
+          <img src={selectedProgram.image || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=60'} alt={selectedProgram.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </div>
+
         <SectionHeading
           eyebrow={selectedProgram.category}
           title={selectedProgram.title}
