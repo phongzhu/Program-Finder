@@ -1,0 +1,1161 @@
+.pf-auth-page {
+  min-height: 100dvh;
+  padding: 0;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(64, 86, 73, 0.18), transparent 34%),
+    radial-gradient(circle at 88% 4%, rgba(23, 59, 99, 0.08), transparent 26%),
+    linear-gradient(180deg, var(--pf-surface, #f4efe5) 0%, var(--pf-surface-alt, #ebe4d7) 100%);
+}
+
+.pf-auth-stage {
+  display: grid;
+  grid-template-columns: minmax(350px, 0.9fr) minmax(0, 1.1fr);
+  min-height: 100dvh;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 28px 58px rgba(13, 28, 45, 0.1);
+}
+
+.pf-auth-promo {
+  position: relative;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 35%),
+    linear-gradient(165deg, var(--pf-accent-dark, #102741) 0%, var(--pf-accent, #173b63) 62%, #3f6892 100%);
+}
+
+.pf-auth-promo::after {
+  content: '';
+  position: absolute;
+  top: -12%;
+  right: -3.8rem;
+  width: 7.8rem;
+  height: 130%;
+  background: linear-gradient(180deg, rgba(16, 39, 65, 0.34), rgba(16, 39, 65, 0.14));
+  transform: skewX(-8deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.pf-auth-promo-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: clamp(2rem, 6vh, 4rem) clamp(1.4rem, 4vw, 3rem);
+}
+
+.pf-auth-brand-mark {
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(16, 39, 65, 0.2);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+.pf-auth-promo-copy {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 26rem;
+}
+
+.pf-auth-role-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f7f3eb;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pf-auth-promo-copy h1 {
+  margin: 0;
+  max-width: 16rem;
+  color: #f5f2eb;
+  font-family: var(--font-display, 'Public Sans', system-ui, sans-serif);
+  font-size: clamp(2rem, 3.1vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.pf-auth-promo-copy p {
+  margin: 0;
+  max-width: 20rem;
+  color: rgba(245, 242, 235, 0.84);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.pf-auth-feature-list {
+  display: none;
+}
+
+.pf-auth-feature-item {
+  position: relative;
+  padding-left: 1.2rem;
+  color: rgba(247, 243, 235, 0.84);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.pf-auth-feature-item::before {
+  content: '';
+  position: absolute;
+  top: 0.52rem;
+  left: 0;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: #c5a86a;
+}
+
+.pf-auth-meta-grid {
+  display: none;
+}
+
+.pf-auth-meta-card {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pf-auth-meta-card span {
+  color: rgba(247, 243, 235, 0.66);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.pf-auth-meta-card strong {
+  color: #f7f3eb;
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+.pf-auth-promo-footer {
+  display: none;
+}
+
+.pf-auth-home-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f7f3eb;
+  opacity: 0.94;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.pf-auth-panel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(1.2rem, 3vw, 2.5rem);
+  background: var(--pf-setting-tertiary) !important;
+  background-color: var(--pf-setting-tertiary) !important;
+  background-image: none !important;
+  color: var(--pf-setting-on-tertiary) !important;
+}
+
+.pf-auth-panel-wrap::before {
+  content: '';
+  position: absolute;
+  left: -1.2rem;
+  top: -12%;
+  width: 2.5rem;
+  height: 124%;
+  background: transparent !important;
+  transform: skewX(-8deg);
+  pointer-events: none;
+}
+
+.pf-auth-card {
+  width: min(100%, 58rem);
+  height: auto;
+  max-height: calc(100dvh - 2.4rem);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: 1.7rem 1.9rem 1.45rem;
+  border-radius: 20px;
+  border: 1px solid var(--pf-border, rgba(18, 35, 58, 0.12));
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: none;
+}
+
+.pf-auth-card.is-signin-layout {
+  width: min(100%, 34rem);
+  padding: 1.9rem 2rem 1.6rem;
+  margin: 0 auto;
+}
+
+.pf-auth-card-header {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-header {
+  text-align: center;
+}
+
+.pf-auth-card-eyebrow {
+  margin: 0;
+  color: var(--pf-ink-muted, #5a697a);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-eyebrow {
+  display: none;
+}
+
+.pf-auth-card-title {
+  margin: 0;
+  color: var(--pf-ink, #12233a);
+  font-family: var(--font-display, 'Public Sans', system-ui, sans-serif);
+  font-size: clamp(1.95rem, 2.4vw, 2.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-title {
+  font-size: clamp(1.75rem, 2.3vw, 2.1rem);
+}
+
+.pf-auth-card-text {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--pf-ink-muted, #5a697a);
+  font-size: 0.95rem;
+  line-height: 1.56;
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-text {
+  display: none;
+}
+
+.pf-auth-card-divider {
+  height: 1px;
+  background: var(--pf-border, rgba(18, 35, 58, 0.12));
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-divider {
+  display: none;
+}
+
+.pf-auth-card-body {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: 0.2rem;
+}
+
+.pf-auth-card.is-signin-layout .pf-auth-card-body {
+  overflow-y: visible;
+  padding-right: 0;
+}
+
+.pf-auth-form {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.pf-auth-form.is-signup-mode {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+
+.pf-auth-form.is-signin-mode,
+.pf-auth-form.is-forgot-mode,
+.pf-auth-form.is-verify-signup-mode {
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-auth-form.is-signup-mode .pf-auth-status,
+.pf-auth-form.is-signup-mode .pf-auth-error,
+.pf-auth-form.is-signup-mode .pf-auth-submit,
+.pf-auth-form.is-signup-mode .pf-auth-inline-link-row {
+  grid-column: 1 / -1;
+}
+
+.pf-auth-field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.pf-auth-field-label {
+  color: var(--pf-ink-soft, #1c3148);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.pf-auth-control {
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 3.35rem;
+  padding: 0 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(18, 35, 58, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.pf-auth-control:focus-within {
+  border-color: rgba(23, 59, 99, 0.32);
+  box-shadow: 0 0 0 3px rgba(23, 59, 99, 0.12);
+}
+
+.pf-auth-control-icon,
+.pf-auth-control-toggle,
+.pf-auth-control-suffix {
+  color: #647695;
+}
+
+.pf-auth-control-icon svg,
+.pf-auth-control-toggle svg,
+.pf-auth-control-suffix svg,
+.pf-auth-submit svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.pf-auth-control-input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-ink, #12233a);
+  font-family: var(--font-body, 'Public Sans', system-ui, sans-serif);
+  font-size: 0.96rem;
+  outline: none;
+}
+
+.pf-auth-control-input::placeholder {
+  color: #7d8b9e;
+}
+
+.pf-auth-control-select {
+  appearance: none;
+}
+
+.pf-auth-control-select.is-placeholder,
+.pf-auth-control-select:disabled {
+  color: #8a98ab;
+}
+
+.pf-auth-control-select option {
+  color: #173b63;
+}
+
+.pf-auth-control-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pf-auth-control-suffix {
+  pointer-events: none;
+}
+
+.pf-auth-inline-link-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.15rem;
+}
+
+.pf-auth-inline-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-accent, #173b63);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pf-auth-inline-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pf-auth-forgot-link {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.pf-auth-otp-panel {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(39, 78, 126, 0.14);
+  background: #edf3f8;
+}
+
+.pf-auth-otp-panel span {
+  color: #647695;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pf-auth-otp-panel strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #173b63;
+  font-size: 1rem;
+}
+
+.pf-auth-otp-screen {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.pf-auth-otp-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.pf-auth-otp-digit {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(18, 35, 58, 0.16);
+  border-radius: 16px;
+  background: #fcfbf7;
+  color: #173b63;
+  font-family: var(--font-body, 'Public Sans', system-ui, sans-serif);
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  font-weight: 900;
+  text-align: center;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.pf-auth-otp-digit:focus {
+  border-color: rgba(23, 59, 99, 0.36);
+  box-shadow: 0 0 0 4px rgba(23, 59, 99, 0.08);
+}
+
+.pf-auth-secondary-action {
+  align-self: flex-end;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #173b63;
+  font-family: var(--font-body, 'Public Sans', system-ui, sans-serif);
+  font-size: 0.94rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pf-auth-status,
+.pf-auth-error {
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.pf-auth-status {
+  background: rgba(23, 59, 99, 0.08);
+  border: 1px solid rgba(23, 59, 99, 0.2);
+  border-left: 4px solid var(--pf-accent, #173b63);
+  color: var(--pf-ink-soft, #1c3148);
+}
+
+.pf-auth-error {
+  background: rgba(143, 68, 54, 0.08);
+  border: 1px solid rgba(143, 68, 54, 0.2);
+  border-left: 4px solid var(--pf-red, #8f4436);
+  color: #733026;
+}
+
+.pf-auth-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 3.35rem;
+  padding: 0 1.35rem;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--pf-accent-dark, #102741) 0%, var(--pf-accent, #173b63) 56%, #2a5b90 100%);
+  color: var(--pf-setting-tertiary-text, #f9fbff);
+  font-family: var(--font-body, 'Public Sans', system-ui, sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px rgba(45, 64, 53, 0.22);
+  cursor: pointer;
+}
+
+.pf-auth-submit:hover {
+  box-shadow: 0 14px 30px rgba(45, 64, 53, 0.26);
+}
+
+.pf-auth-submit:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.pf-auth-prompt {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(18, 35, 58, 0.16);
+}
+
+.pf-auth-prompt-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1.35rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.pf-auth-prompt-context {
+  color: var(--pf-ink-muted, #5a697a);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pf-auth-prompt-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-accent, #173b63);
+  font-size: 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pf-auth-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(18, 35, 58, 0.14);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.pf-auth-footer-note {
+  margin: 0;
+  color: var(--pf-ink-muted, #5a697a);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.pf-auth-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pf-auth-footer-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-accent, #173b63);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 1180px) {
+  .pf-auth-panel-wrap {
+    padding: 1.25rem;
+  }
+
+  .pf-auth-card {
+    max-height: calc(100dvh - 1.6rem);
+  }
+
+  .pf-auth-card {
+    width: 100%;
+  }
+}
+
+/* ui_settings overrides for auth portal. Keep after legacy auth styles. */
+.pf-auth-page,
+.pf-auth-stage {
+  background: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+  background-image: none !important;
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+  font-family: var(--pf-font-body, var(--font-body)) !important;
+}
+
+
+.pf-auth-promo {
+  background: linear-gradient(
+    160deg,
+    var(--pf-setting-primary, var(--pf-accent)) 0%,
+    var(--pf-setting-primary, var(--pf-accent)) 54%,
+    var(--pf-setting-secondary, var(--pf-amber)) 100%
+  ) !important;
+  background-color: var(--pf-setting-primary, var(--pf-accent)) !important;
+  color: var(--pf-setting-on-primary, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-promo::after,
+.pf-auth-panel-wrap::before {
+  display: none !important;
+}
+
+.pf-auth-promo :is(h1, p, span, strong, small, li, button) {
+  color: var(--pf-setting-on-primary, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-card,
+.pf-auth-control,
+.pf-auth-otp-panel,
+.pf-auth-otp-digit {
+  background: var(--pf-setting-tertiary, var(--pf-card)) !important;
+  background-image: none !important;
+  border-color: color-mix(in srgb, var(--pf-setting-primary, var(--pf-accent)) 14%, transparent) !important;
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+}
+
+.pf-auth-card :is(h1, h2, h3, p, span, strong, small, label, div),
+.pf-auth-control :is(svg, span),
+.pf-auth-control-input,
+.pf-auth-control-select {
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+  font-family: var(--pf-font-body, var(--font-body)) !important;
+}
+
+.pf-auth-control-input::placeholder {
+  color: var(--pf-setting-tertiary-text, var(--pf-ink-muted)) !important;
+}
+
+.pf-auth-submit {
+  background: linear-gradient(
+    90deg,
+    var(--pf-setting-primary, var(--pf-accent)) 0%,
+    var(--pf-setting-secondary, var(--pf-amber)) 100%
+  ) !important;
+  background-color: var(--pf-setting-primary, var(--pf-accent)) !important;
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-submit * {
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-card :is(
+  .pf-auth-card-eyebrow,
+  .pf-auth-card-title,
+  .pf-auth-card-text,
+  .pf-auth-field-label,
+  .pf-auth-control,
+  .pf-auth-control-icon,
+  .pf-auth-control-toggle,
+  .pf-auth-control-suffix,
+  .pf-auth-control-input,
+  .pf-auth-control-select,
+  .pf-auth-inline-link,
+  .pf-auth-prompt-link,
+  .pf-auth-footer-link,
+  .pf-auth-secondary-action
+),
+.pf-auth-card .pf-auth-control :is(svg, span),
+.pf-auth-card .pf-auth-control-select.is-placeholder,
+.pf-auth-card .pf-auth-control-select:disabled {
+  color: var(--pf-setting-secondary-text, var(--pf-setting-on-tertiary)) !important;
+}
+
+.pf-auth-card .pf-auth-control-input::placeholder {
+  color: color-mix(in srgb, var(--pf-setting-secondary-text, var(--pf-setting-on-tertiary)) 58%, transparent) !important;
+}
+
+.pf-auth-card .pf-auth-control-select option {
+  color: var(--pf-setting-secondary-text, var(--pf-setting-on-tertiary)) !important;
+}
+
+.pf-auth-card .pf-auth-submit,
+.pf-auth-card .pf-auth-submit :is(span, svg) {
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-card .pf-auth-submit,
+.pf-auth-card .pf-auth-submit :is(span, svg) {
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+/* Final auth diagonal accents from ui_settings text colors. */
+.pf-auth-promo-diagonal {
+  display: block !important;
+  background: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-image: none !important;
+  box-shadow: 18px 0 42px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 28%, transparent) !important;
+}
+
+.pf-auth-panel-diagonal {
+  display: block !important;
+  background: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-color: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-image: none !important;
+  box-shadow: -18px 0 38px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 32%, transparent) !important;
+  opacity: 0.72;
+}
+
+.pf-auth-panel-diagonal-soft {
+  display: block !important;
+  background: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-color: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-image: none !important;
+  box-shadow: -24px 0 52px color-mix(in srgb, var(--pf-setting-secondary, var(--pf-amber)) 24%, transparent) !important;
+  opacity: 1;
+}
+
+/* Final auth diagonal accents from ui_settings text colors. */
+.pf-auth-promo-diagonal {
+  display: block !important;
+  background: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-image: none !important;
+  box-shadow: 18px 0 42px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 28%, transparent) !important;
+}
+
+.pf-auth-panel-diagonal {
+  display: block !important;
+  background: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-color: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-image: none !important;
+  box-shadow: -18px 0 38px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 32%, transparent) !important;
+  opacity: 0.72;
+}
+
+.pf-auth-panel-diagonal-soft {
+  display: block !important;
+  background: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-color: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-image: none !important;
+  box-shadow: -24px 0 52px color-mix(in srgb, var(--pf-setting-secondary, var(--pf-amber)) 24%, transparent) !important;
+  opacity: 1;
+}
+
+.pf-auth-inline-link,
+.pf-auth-prompt-link,
+.pf-auth-footer-link,
+.pf-auth-secondary-action {
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+}
+
+@media (max-width: 860px) {
+  .pf-auth-page {
+    padding: 0;
+  }
+
+  .pf-auth-stage {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .pf-auth-promo {
+    min-height: 35vh;
+  }
+
+  .pf-auth-promo::after,
+  .pf-auth-panel-wrap::before {
+    display: none;
+  }
+
+  .pf-auth-promo-inner,
+  .pf-auth-panel-wrap {
+    padding: 1.1rem 1rem;
+  }
+
+  .pf-auth-meta-grid,
+  .pf-auth-form.is-signup-mode {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-auth-card {
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    padding: 1.3rem 1rem;
+    border-radius: 16px;
+  }
+
+  .pf-auth-card-body {
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .pf-auth-footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pf-auth-inline-link-row {
+    justify-content: flex-start;
+  }
+}
+
+/* Final auth color rules from ui_settings. */
+.pf-auth-page,
+.pf-auth-stage,
+.pf-auth-card,
+.pf-auth-control,
+.pf-auth-otp-panel,
+.pf-auth-otp-digit {
+  background: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+  background-color: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+  background-image: none !important;
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+}
+
+.pf-auth-panel-wrap {
+  background: linear-gradient(
+    160deg,
+    var(--pf-setting-primary, var(--pf-accent)) 0%,
+    var(--pf-setting-primary, var(--pf-accent)) 54%,
+    var(--pf-setting-secondary, var(--pf-amber)) 100%
+  ) !important;
+  background-color: var(--pf-setting-primary, var(--pf-accent)) !important;
+  color: var(--pf-setting-on-primary, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-promo {
+  background: linear-gradient(
+    160deg,
+    var(--pf-setting-primary, var(--pf-accent)) 0%,
+    var(--pf-setting-primary, var(--pf-accent)) 54%,
+    var(--pf-setting-secondary, var(--pf-amber)) 100%
+  ) !important;
+  background-color: var(--pf-setting-primary, var(--pf-accent)) !important;
+  color: var(--pf-setting-on-primary, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-promo :is(div, section, button, span, h1, h2, h3, p, small, strong, li, ul, svg) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--pf-setting-on-primary, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-card :is(h1, h2, h3, p, span, strong, small, label, div),
+.pf-auth-control :is(svg, span),
+.pf-auth-control-input,
+.pf-auth-control-select {
+  color: var(--pf-setting-on-tertiary, var(--pf-on-tertiary)) !important;
+}
+
+.pf-auth-submit {
+  background: linear-gradient(
+    90deg,
+    var(--pf-setting-primary, var(--pf-setting-primary)) 0%,
+    var(--pf-setting-primary, var(--pf-setting-primary)) 100%
+  ) !important;
+  background-color: var(--pf-setting-primary, var(--pf-setting-primary)) !important;
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+.pf-auth-submit * {
+  color: var(--pf-setting-tertiary-text, var(--pf-on-primary)) !important;
+}
+
+/* Final auth diagonal accents from ui_settings text colors. */
+.pf-auth-promo-diagonal {
+  display: block !important;
+  background: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--pf-setting-secondary, var(--pf-amber)) 42%,
+    transparent
+  ) !important;
+  background-image: none !important;
+  box-shadow: 18px 0 42px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 28%, transparent) !important;
+}
+
+.pf-auth-panel-diagonal {
+  display: block !important;
+  background: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-color: var(--pf-setting-secondary, var(--pf-amber)) !important;
+  background-image: none !important;
+  box-shadow: -18px 0 38px color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 32%, transparent) !important;
+  opacity: 0.72;
+}
+
+.pf-auth-panel-diagonal-soft {
+  display: block !important;
+  background: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-color: color-mix(in srgb, var(--pf-setting-primary-text, var(--pf-ink)) 26%, transparent) !important;
+  background-image: none !important;
+  box-shadow: -24px 0 52px color-mix(in srgb, var(--pf-setting-secondary, var(--pf-amber)) 24%, transparent) !important;
+  opacity: 1;
+}
+.pf-auth-panel-wrap {
+  background: var(--pf-setting-tertiary) !important;
+  background-color: var(--pf-setting-tertiary) !important;
+  background-image: none !important;
+}
+.pf-auth-panel-wrap::before {
+  display: block !important;
+  content: '';
+  position: absolute;
+  left: -4.2rem;
+  top: -12%;
+  width: 2.5rem;
+  height: 124%;
+  background: var(--pf-setting-tertiary) !important;
+  background-image: none !important;
+  transform: skewX(-8deg);
+  pointer-events: none;
+  box-shadow:
+    -18px 0 38px color-mix(in srgb, var(--pf-setting-primary-text) 32%, transparent),
+    18px 0 42px color-mix(in srgb, var(--pf-setting-secondary-text) 24%, transparent) !important;
+}
+
+@media (max-width: 760px) {
+  .pf-auth-page {
+    min-height: 100dvh;
+    overflow-y: auto;
+    background: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+  }
+
+  .pf-auth-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100dvh;
+    overflow: visible;
+    background: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+    box-shadow: none;
+  }
+
+  .pf-auth-promo {
+    min-height: 0 !important;
+    clip-path: none !important;
+    border-radius: 0 0 22px 22px;
+  }
+
+  .pf-auth-promo::after,
+  .pf-auth-promo-diagonal,
+  .pf-auth-panel-diagonal,
+  .pf-auth-panel-diagonal-soft,
+  .pf-auth-panel-wrap::before {
+    display: none !important;
+  }
+
+  .pf-auth-promo-inner {
+    height: auto;
+    min-height: 0;
+    justify-content: flex-start;
+    gap: 1.05rem;
+    padding: 1.35rem 1.35rem 1.65rem;
+  }
+
+  .pf-auth-brand-mark {
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 12px;
+  }
+
+  .pf-auth-promo-copy {
+    gap: 0.85rem;
+    max-width: none;
+  }
+
+  .pf-auth-role-pill {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  .pf-auth-promo-copy h1 {
+    max-width: 17rem;
+    font-size: 2rem;
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  .pf-auth-promo-copy p {
+    max-width: 24rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .pf-auth-feature-list,
+  .pf-auth-meta-grid,
+  .pf-auth-promo-footer {
+    display: none !important;
+  }
+
+  .pf-auth-panel-wrap {
+    display: block;
+    padding: 1rem 1rem 1.75rem;
+    background: var(--pf-setting-tertiary, var(--pf-surface)) !important;
+    background-image: none !important;
+  }
+
+  .pf-auth-card,
+  .pf-auth-card.is-signin-layout {
+    width: 100%;
+    max-height: none;
+    min-height: 0;
+    margin: 0;
+    padding: 1.35rem 1rem 1.2rem;
+    border-radius: 18px;
+    border-color: color-mix(in srgb, var(--pf-setting-primary, var(--pf-accent)) 10%, transparent) !important;
+    box-shadow: 0 18px 44px color-mix(in srgb, var(--pf-setting-primary-text, #111827) 10%, transparent);
+  }
+
+  .pf-auth-card-header {
+    gap: 0.35rem;
+  }
+
+  .pf-auth-card.is-signin-layout .pf-auth-card-header {
+    text-align: center;
+  }
+
+  .pf-auth-card-title,
+  .pf-auth-card.is-signin-layout .pf-auth-card-title {
+    font-size: 2rem;
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  .pf-auth-card-body {
+    overflow: visible;
+    padding-right: 0;
+    gap: 0.9rem;
+  }
+
+  .pf-auth-form {
+    gap: 0.85rem;
+  }
+
+  .pf-auth-field {
+    gap: 0.45rem;
+  }
+
+  .pf-auth-control {
+    min-height: 3.25rem;
+    grid-template-columns: 1.25rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    padding: 0 0.85rem;
+    border-radius: 14px;
+  }
+
+  .pf-auth-control-input,
+  .pf-auth-control-select {
+    font-size: 1rem;
+  }
+
+  .pf-auth-inline-link-row {
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    flex-wrap: wrap;
+  }
+
+  .pf-auth-inline-link {
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  .pf-auth-submit {
+    min-height: 3.45rem;
+    border-radius: 14px;
+    font-size: 0.98rem;
+  }
+
+  .pf-auth-prompt {
+    margin-top: 0.15rem;
+    padding-top: 0.85rem;
+  }
+
+  .pf-auth-prompt-row {
+    gap: 0.7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .pf-auth-promo-inner {
+    padding: 1.2rem 1rem 1.45rem;
+  }
+
+  .pf-auth-panel-wrap {
+    padding: 0.9rem 0.75rem 1.5rem;
+  }
+
+  .pf-auth-card,
+  .pf-auth-card.is-signin-layout {
+    padding: 1.2rem 0.85rem 1rem;
+  }
+
+  .pf-auth-promo-copy h1 {
+    font-size: 1.8rem;
+  }
+
+  .pf-auth-card-title,
+  .pf-auth-card.is-signin-layout .pf-auth-card-title {
+    font-size: 1.8rem;
+  }
+}

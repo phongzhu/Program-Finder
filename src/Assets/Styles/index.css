@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .pf-tw-panel {
+    @apply rounded-panel border border-black/5 bg-white/95 shadow-pf-soft;
+  }
+
+  .pf-tw-toolbar {
+    @apply grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+  }
+
+  .pf-tw-grid-4 {
+    @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .pf-tw-form-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body, 'Public Sans', system-ui, sans-serif);
+  background: var(--pf-surface, #f3f4f6);
+  color: var(--pf-on-tertiary, var(--pf-ink-soft, #374151));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}

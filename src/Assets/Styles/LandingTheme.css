@@ -1,0 +1,1284 @@
+/* =========================================================
+   LandingTheme.css — Formal government public portal theme
+   Loaded after App.css and SidebarTheme.css.
+   Scope: .app-shell-public-home
+   ========================================================= */
+
+/* ── Design tokens ───────────────────────────────────────── */
+.app-shell-public-home {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  --pf-setting-tertiary: #ffffff !important;
+  --surface-1: #ffffff !important;
+  --surface-2: #ffffff !important;
+  --surface-3: #ffffff !important;
+  --pf-surface: #ffffff !important;
+  --pf-surface-alt: #ffffff !important;
+  --pf-card: #ffffff !important;
+  --pf-workspace-bg: #ffffff !important;
+  --pf-workspace-surface: #ffffff !important;
+  --pf-workspace-surface-alt: #ffffff !important;
+  --pf-workspace-surface-soft: #ffffff !important;
+  --panel: #ffffff !important;
+  --panel-strong: #ffffff !important;
+  --panel-soft: #ffffff !important;
+  --bulacan-beige: #ffffff !important;
+  --bulacan-beige-deep: #ffffff !important;
+  --bulacan-white: #ffffff !important;
+  --bg: #ffffff !important;
+  --lt-navy:       var(--pf-setting-primary, #0f2f56);
+  --lt-navy-light: rgba(15, 47, 86, 0.08);
+  --lt-navy-mid:   rgba(15, 47, 86, 0.14);
+  --lt-navy-deep:  #0c2444;
+  --lt-gold:       var(--pf-setting-secondary, #d4af37);
+  --lt-ink:        #12233a;
+  --lt-muted:      #586678;
+  --lt-border:     rgba(18, 35, 58, 0.10);
+  --lt-border-mid: rgba(18, 35, 58, 0.15);
+  --lt-surface:    #ffffff;
+  --lt-surface-2:  #ffffff;
+  --lt-surface-3:  #ffffff;
+  --lt-radius:     0;            /* square corners throughout */
+}
+
+/* ── Base page ───────────────────────────────────────────── */
+.app-shell-public-home .pf-homepage {
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-page {
+  background: #ffffff !important;
+}
+
+/* ── Government notice bar ───────────────────────────────── */
+.app-shell-public-home .pf-gov-notice {
+  background: var(--pf-setting-secondary, #d4af37) !important;
+  background-color: var(--pf-setting-secondary, #d4af37) !important;
+  background-image: none !important;
+  border-bottom: 0 !important;
+}
+
+.app-shell-public-home .pf-gov-notice-inner {
+  background: transparent !important;
+  color: var(--pf-setting-primary-text, #111827) !important;
+}
+
+.app-shell-public-home .pf-gov-notice :is(span, strong, small, p, div) {
+  background: transparent !important;
+  color: var(--pf-setting-primary-text, #111827) !important;
+}
+
+.app-shell-public-home .pf-gov-notice-label {
+  color: var(--pf-setting-primary-text, #111827) !important;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── Government utility bar ──────────────────────────────── */
+.app-shell-public-home .pf-gov-utility {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-bottom: 2px solid var(--lt-navy);
+}
+
+.app-shell-public-home .pf-gov-utility-label {
+  color: var(--lt-muted) !important;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.app-shell-public-home .pf-gov-utility-title {
+  color: var(--lt-navy) !important;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.app-shell-public-home .pf-gov-utility-meta span {
+  color: var(--lt-muted) !important;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+/* ── Navigation ──────────────────────────────────────────── */
+.app-shell-public-home .pf-gov-header {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-bottom: 0;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-nav {
+  border-bottom: 1px solid var(--lt-border) !important;
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-nav-mark {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-nav-label strong {
+  color: var(--lt-navy);
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.app-shell-public-home .pf-nav-label small {
+  color: var(--lt-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.app-shell-public-home .pf-nav-caption {
+  color: var(--lt-muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.app-shell-public-home .pf-nav-link {
+  color: var(--lt-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.app-shell-public-home .pf-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--lt-navy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.app-shell-public-home .pf-nav-link:hover,
+.app-shell-public-home .pf-nav-link:focus-visible {
+  color: var(--lt-navy) !important;
+  background: transparent !important;
+}
+
+.app-shell-public-home .pf-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Nav action buttons */
+.app-shell-public-home .pf-btn-accent,
+.app-shell-public-home .pf-btn-contact {
+  border-radius: 0 !important;
+  background: var(--lt-navy) !important;
+  border-color: var(--lt-navy) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.app-shell-public-home .pf-btn-accent:hover,
+.app-shell-public-home .pf-btn-contact:hover {
+  background: var(--lt-navy-deep) !important;
+  border-color: var(--lt-navy-deep) !important;
+  transform: none !important;
+}
+
+.app-shell-public-home .pf-btn-outline,
+.app-shell-public-home .pf-program-button,
+.app-shell-public-home .pf-bulletin-carousel-button,
+.app-shell-public-home .pf-bulletin-source-link {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 1.5px solid var(--lt-border-mid) !important;
+  color: var(--lt-navy) !important;
+  box-shadow: none !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.app-shell-public-home .pf-btn-outline:hover,
+.app-shell-public-home .pf-program-button:hover,
+.app-shell-public-home .pf-bulletin-carousel-button:hover,
+.app-shell-public-home .pf-bulletin-source-link:hover {
+  background: var(--lt-surface-3) !important;
+  border-color: var(--lt-navy) !important;
+  color: var(--lt-navy) !important;
+  transform: none !important;
+}
+
+/* Mobile hamburger */
+.app-shell-public-home .pf-nav-hamburger {
+  border-radius: 0 !important;
+  border-color: var(--lt-border-mid) !important;
+  background: #ffffff !important;
+}
+
+/* Mobile menu */
+.app-shell-public-home .pf-mobile-menu-panel {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-left: 2px solid var(--lt-navy) !important;
+  box-shadow: -20px 0 48px rgba(15, 47, 86, 0.14) !important;
+}
+
+.app-shell-public-home .pf-mobile-menu-brand-mark {
+  border-radius: 0 !important;
+}
+
+.app-shell-public-home .pf-mobile-nav-link {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid var(--lt-border) !important;
+  color: var(--lt-ink) !important;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.app-shell-public-home .pf-mobile-nav-link:hover {
+  background: var(--lt-surface-3) !important;
+  border-color: var(--lt-navy) !important;
+}
+
+/* ── Hero section ────────────────────────────────────────── */
+.app-shell-public-home .pf-hero-wrap {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--lt-border);
+}
+
+.app-shell-public-home .pf-hero-main-panel,
+.app-shell-public-home .pf-hero-service-aside .pf-hero-visual-shell {
+  border-radius: 0 !important;
+  border: 1px solid var(--lt-border) !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 12px rgba(15, 47, 86, 0.04), 0 8px 24px rgba(15, 47, 86, 0.04) !important;
+}
+
+.app-shell-public-home .pf-hero-service-shell {
+  border-radius: 0 !important;
+}
+
+.app-shell-public-home .pf-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 0 0.75rem;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 3px solid var(--lt-navy) !important;
+  border-radius: 0 !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.app-shell-public-home .pf-hero-eyebrow-dot {
+  background: var(--lt-gold) !important;
+}
+
+.app-shell-public-home .pf-hero-title {
+  color: var(--lt-ink) !important;
+  font-size: clamp(1.85rem, 3.2vw, 2.75rem) !important;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.app-shell-public-home .pf-hero-text {
+  color: var(--lt-muted) !important;
+  font-size: 0.98rem !important;
+  line-height: 1.75;
+}
+
+.app-shell-public-home .pf-hero-actions {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.app-shell-public-home .pf-hero-service-aside {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.app-shell-public-home .pf-hero-service-shell,
+.app-shell-public-home .pf-hero-service-head,
+.app-shell-public-home .pf-hero-stat-grid,
+.app-shell-public-home .pf-hero-program-shell,
+.app-shell-public-home .pf-hero-program-shell-head,
+.app-shell-public-home .pf-hero-program-shell-copy {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Hero stat cards */
+.app-shell-public-home .pf-hero-service-aside .pf-hero-stat-card {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid var(--lt-border) !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-hero-service-aside .pf-hero-stat-card strong {
+  color: var(--lt-navy) !important;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.app-shell-public-home .pf-hero-service-aside .pf-hero-stat-card span {
+  color: var(--lt-muted) !important;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-shell-public-home .pf-hero-visual-kicker {
+  color: var(--pf-setting-primary-text, #111827) !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.app-shell-public-home .pf-hero-service-heading {
+  color: var(--lt-ink) !important;
+  font-size: 1.22rem;
+  font-weight: 800;
+}
+
+.app-shell-public-home .pf-hero-service-text {
+  color: var(--lt-muted) !important;
+}
+
+/* Hero program carousel */
+.app-shell-public-home .pf-hero-program-shell-kicker {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-program-shell-heading {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-hero-program-shell-dot {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+}
+
+.app-shell-public-home .pf-hero-program-shell-dot.is-active {
+  background: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-program-shell-button {
+  border-radius: 0 !important;
+  border-color: var(--lt-border-mid) !important;
+  background: #ffffff !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card {
+  border-radius: 0 !important;
+  border-color: var(--lt-border) !important;
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-hero-program-card.is-link:hover {
+  border-color: var(--lt-navy-mid) !important;
+  background: #ffffff !important;
+  transform: none !important;
+  box-shadow: 0 8px 24px rgba(15, 47, 86, 0.08) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-media {
+  background: var(--lt-surface-3) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-category {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  border-color: var(--lt-navy-mid) !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-title {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-fact {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-link {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-program-card-source {
+  color: var(--lt-muted) !important;
+}
+
+/* Hero category marquee */
+.app-shell-public-home .pf-hero-category-marquee {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-hero-category-label {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-hero-chip {
+  border-radius: 0 !important;
+  border-color: var(--lt-border) !important;
+  background: #ffffff !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+/* ── Section backdrops ───────────────────────────────────── */
+.app-shell-public-home .pf-stage-section {
+  border-top: 1px solid var(--lt-border) !important;
+}
+
+.app-shell-public-home .pf-stage-backdrop::before {
+  background-image:
+    linear-gradient(rgba(15, 47, 86, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 47, 86, 0.04) 1px, transparent 1px) !important;
+  background-size: 80px 80px !important;
+  opacity: 0.12 !important;
+}
+
+/* Section background alternation — clean, formal */
+.app-shell-public-home .pf-stage-overview,
+.app-shell-public-home .pf-stage-programs,
+.app-shell-public-home .pf-stage-faq,
+.app-shell-public-home .pf-stage-contact {
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-stage-announcements,
+.app-shell-public-home .pf-stage-how-it-works,
+.app-shell-public-home .pf-stage-categories {
+  background: #ffffff !important;
+}
+
+/* Features section — formal dark navy */
+.app-shell-public-home .pf-stage-features {
+  background: #ffffff !important;
+  color: var(--lt-ink) !important;
+  --pf-accent: var(--lt-navy);
+  --pf-ink-soft: var(--lt-ink);
+  --pf-ink-muted: var(--lt-muted);
+}
+
+/* CTA section */
+.app-shell-public-home .pf-stage-cta {
+  background: #ffffff !important;
+  border-top: 1px solid var(--lt-border) !important;
+}
+
+/* Footer */
+.app-shell-public-home .pf-stage-footer {
+  background: #ffffff !important;
+  border-top: 1px solid var(--lt-border) !important;
+}
+
+/* ── Section headings ────────────────────────────────────── */
+.app-shell-public-home .pf-sec-header {
+  text-align: left !important;
+  margin: 0 0 2rem !important;
+  max-width: none !important;
+}
+
+.app-shell-public-home .pf-sec-eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  padding: 0 0 0 0.7rem !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 3px solid var(--lt-gold) !important;
+  border-radius: 0 !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+.app-shell-public-home .pf-sec-title {
+  margin: 0 !important;
+  color: var(--lt-ink) !important;
+  font-size: clamp(1.65rem, 2.8vw, 2.4rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.app-shell-public-home .pf-sec-divider {
+  display: block;
+  width: 44px !important;
+  height: 3px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-sec-text {
+  margin: 0 !important;
+  color: var(--lt-muted) !important;
+  font-size: 0.98rem !important;
+  line-height: 1.75 !important;
+  max-width: 52rem !important;
+}
+
+/* Dark section headings (features, cta) */
+.app-shell-public-home .pf-sec-header.is-dark .pf-sec-eyebrow {
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-left-color: var(--lt-gold) !important;
+}
+
+.app-shell-public-home .pf-sec-header.is-dark .pf-sec-title {
+  color: #ffffff !important;
+}
+
+.app-shell-public-home .pf-sec-header.is-dark .pf-sec-divider {
+  background: var(--lt-gold) !important;
+}
+
+.app-shell-public-home .pf-sec-header.is-dark .pf-sec-text {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+/* ── Common card base ────────────────────────────────────── */
+.app-shell-public-home .pf-overview-item,
+.app-shell-public-home .pf-note-card,
+.app-shell-public-home .pf-step-card,
+.app-shell-public-home .pf-feature-card,
+.app-shell-public-home .pf-cat-card,
+.app-shell-public-home .pf-contact-card,
+.app-shell-public-home .pf-faq-item,
+.app-shell-public-home .pf-bulletin-news,
+.app-shell-public-home .pf-bulletin-directory,
+.app-shell-public-home .pf-bulletin-reminders {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid var(--lt-border) !important;
+  box-shadow: 0 1px 2px rgba(15, 47, 86, 0.04), 0 4px 12px rgba(15, 47, 86, 0.04) !important;
+}
+
+.app-shell-public-home .pf-overview-item:hover,
+.app-shell-public-home .pf-note-card:hover,
+.app-shell-public-home .pf-feature-card:hover,
+.app-shell-public-home .pf-cat-card:hover,
+.app-shell-public-home .pf-program-card:hover,
+.app-shell-public-home .pf-contact-card:hover {
+  transform: none !important;
+  box-shadow: 0 2px 4px rgba(15, 47, 86, 0.06), 0 8px 20px rgba(15, 47, 86, 0.06) !important;
+  border-color: var(--lt-navy-mid) !important;
+}
+
+/* Card accent icons */
+.app-shell-public-home .pf-overview-icon,
+.app-shell-public-home .pf-feature-icon {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  border: 1px solid var(--lt-navy-mid) !important;
+}
+
+/* Note card & contact badges */
+.app-shell-public-home .pf-note-badge,
+.app-shell-public-home .pf-contact-badge {
+  padding: 0 0 0 0.65rem !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border-left: 3px solid var(--lt-navy) !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+.app-shell-public-home .pf-note-card strong,
+.app-shell-public-home .pf-contact-card strong {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-note-card p,
+.app-shell-public-home .pf-contact-card p,
+.app-shell-public-home .pf-contact-card small {
+  color: var(--lt-muted) !important;
+}
+
+/* ── Overview section ────────────────────────────────────── */
+.app-shell-public-home .pf-overview-item {
+  border-top: 3px solid var(--lt-navy) !important;
+  gap: 1rem;
+  padding: 1.15rem !important;
+}
+
+.app-shell-public-home .pf-overview-text {
+  color: var(--lt-ink) !important;
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* ── Announcements / bulletin ────────────────────────────── */
+.app-shell-public-home .pf-bulletin {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: 0 1px 3px rgba(15, 47, 86, 0.04), 0 6px 20px rgba(15, 47, 86, 0.04) !important;
+}
+
+.app-shell-public-home .pf-bulletin-header,
+.app-shell-public-home .pf-bulletin-intro,
+.app-shell-public-home .pf-bulletin-tools,
+.app-shell-public-home .pf-bulletin-layout,
+.app-shell-public-home .pf-bulletin-news,
+.app-shell-public-home .pf-bulletin-rail,
+.app-shell-public-home .pf-bulletin-panel,
+.app-shell-public-home .pf-bulletin-panel-head,
+.app-shell-public-home .pf-bulletin-viewer,
+.app-shell-public-home .pf-bulletin-subnotice {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.app-shell-public-home .pf-bulletin-kicker,
+.app-shell-public-home .pf-bulletin-panel-kicker {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-bulletin-title,
+.app-shell-public-home .pf-bulletin-panel-head h3 {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-bulletin-text {
+  color: var(--lt-muted) !important;
+}
+
+.app-shell-public-home .pf-bulletin-viewer {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+}
+
+.app-shell-public-home .pf-bulletin-viewer-badge {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  border-color: var(--lt-navy-mid) !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-bulletin-directory-item,
+.app-shell-public-home .pf-bulletin-reminder,
+.app-shell-public-home .pf-bulletin-facebook-link.pf-bulletin-rail-link-card {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+}
+
+.app-shell-public-home .pf-bulletin-directory-item:hover,
+.app-shell-public-home .pf-bulletin-facebook-link.pf-bulletin-rail-link-card:hover {
+  border-color: var(--lt-navy-mid) !important;
+  background: #ffffff !important;
+  transform: none !important;
+}
+
+.app-shell-public-home .pf-bulletin-directory-item.is-active {
+  border-color: var(--lt-navy) !important;
+  border-left: 3px solid var(--lt-navy) !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-bulletin-directory-source {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  border-color: var(--lt-navy-mid) !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-bulletin-subnotice {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+}
+
+.app-shell-public-home .pf-bulletin-subnotice.is-link:hover {
+  border-color: var(--lt-navy-mid) !important;
+  background: #ffffff !important;
+  transform: none !important;
+}
+
+.app-shell-public-home .pf-bulletin-source-link,
+.app-shell-public-home .pf-bulletin-updated {
+  color: var(--lt-navy) !important;
+}
+
+/* ── Programs section ────────────────────────────────────── */
+.app-shell-public-home .pf-program-card {
+  border-radius: 0 !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: 0 1px 2px rgba(15, 47, 86, 0.04), 0 6px 18px rgba(15, 47, 86, 0.04) !important;
+}
+
+.app-shell-public-home .pf-stage-programs .pf-programs-inner {
+  width: min(1920px, 99vw) !important;
+  max-width: min(1920px, 99vw) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(0.5rem, 1vw, 0.9rem) !important;
+}
+
+.app-shell-public-home .pf-program-media {
+  border-radius: 0 !important;
+  background: var(--lt-surface-3) !important;
+  aspect-ratio: auto !important;
+  height: clamp(92px, 8vw, 120px) !important;
+}
+
+.app-shell-public-home .pf-stage-programs .pf-program-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0.65rem !important;
+}
+
+.app-shell-public-home .pf-program-body {
+  gap: 0.45rem !important;
+  padding: 0.6rem 0.65rem 0.7rem !important;
+}
+
+.app-shell-public-home .pf-program-cat {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.app-shell-public-home .pf-pill-open,
+.app-shell-public-home .pf-pill-upcoming,
+.app-shell-public-home .pf-pill-closed {
+  border-radius: 0 !important;
+}
+
+.app-shell-public-home .pf-program-title {
+  color: var(--lt-ink) !important;
+  font-size: 0.82rem !important;
+  line-height: 1.2 !important;
+}
+
+.app-shell-public-home .pf-program-desc {
+  display: none !important;
+}
+
+.app-shell-public-home .pf-program-meta-item {
+  border-radius: 0 !important;
+  background: var(--lt-surface-2) !important;
+  border: 1px solid var(--lt-border);
+  padding: 0.32rem 0.42rem !important;
+}
+
+.app-shell-public-home .pf-program-meta-item small {
+  color: var(--lt-muted) !important;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.app-shell-public-home .pf-program-meta-item strong {
+  color: var(--lt-ink) !important;
+  font-size: 0.72rem !important;
+  line-height: 1.25 !important;
+}
+
+.app-shell-public-home .pf-program-button {
+  min-height: 1.8rem !important;
+  padding: 0.28rem 0.5rem !important;
+  font-size: 0.68rem !important;
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 1600px) {
+  .app-shell-public-home .pf-stage-programs .pf-program-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .app-shell-public-home .pf-stage-programs .pf-program-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell-public-home .pf-stage-programs .pf-program-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── How It Works — process steps ────────────────────────── */
+.app-shell-public-home .pf-process-step {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: 0 1px 2px rgba(15, 47, 86, 0.04) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.app-shell-public-home .pf-process-step:hover {
+  border-color: var(--lt-navy-mid) !important;
+  background: #ffffff !important;
+  transform: none !important;
+  box-shadow: 0 4px 16px rgba(15, 47, 86, 0.06) !important;
+}
+
+.app-shell-public-home .pf-process-step.is-active {
+  border-color: var(--lt-navy) !important;
+  border-left: 3px solid var(--lt-navy) !important;
+  background: var(--lt-surface-3) !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-process-step-number {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+  color: var(--lt-navy) !important;
+  font-size: 0.88rem;
+  font-weight: 800;
+  width: 2.6rem !important;
+  min-width: 2.6rem !important;
+  min-height: 2.6rem !important;
+}
+
+.app-shell-public-home .pf-process-step.is-active .pf-process-step-number {
+  background: var(--lt-navy) !important;
+  color: #ffffff !important;
+}
+
+.app-shell-public-home .pf-process-step-copy strong {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-process-step-copy span {
+  color: var(--lt-muted) !important;
+}
+
+.app-shell-public-home .pf-process-panel {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: 0 1px 2px rgba(15, 47, 86, 0.04), 0 6px 20px rgba(15, 47, 86, 0.05) !important;
+}
+
+.app-shell-public-home .pf-process-panel-kicker {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-process-panel-title {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-process-panel-status {
+  border-radius: 0 !important;
+  background: var(--lt-surface-2) !important;
+  border-color: var(--lt-border) !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-process-panel-button {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  border-color: var(--lt-border-mid) !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-process-panel-button:hover {
+  background: var(--lt-surface-3) !important;
+  border-color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-process-panel-text {
+  color: var(--lt-muted) !important;
+}
+
+.app-shell-public-home .pf-process-point {
+  border-radius: 0 !important;
+  background: var(--lt-surface-2) !important;
+  border-color: var(--lt-border) !important;
+}
+
+.app-shell-public-home .pf-process-point small {
+  color: var(--lt-muted) !important;
+}
+
+.app-shell-public-home .pf-process-point strong {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-process-progress-dot {
+  border-radius: 0 !important;
+  background: var(--lt-navy-light) !important;
+}
+
+.app-shell-public-home .pf-process-progress-dot.is-complete {
+  background: var(--lt-navy) !important;
+}
+
+/* ── Features section ────────────────────────────────────── */
+.app-shell-public-home .pf-stage-features .pf-sec-eyebrow {
+  color: var(--lt-navy) !important;
+  border-left-color: var(--lt-gold) !important;
+}
+
+.app-shell-public-home .pf-stage-features .pf-sec-title {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-stage-features .pf-sec-divider {
+  background: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-stage-features .pf-sec-text {
+  color: var(--lt-muted) !important;
+}
+
+.app-shell-public-home .pf-feature-card {
+  background: #ffffff !important;
+  border-color: var(--lt-border) !important;
+  box-shadow: 0 1px 2px rgba(15, 47, 86, 0.04), 0 4px 12px rgba(15, 47, 86, 0.04) !important;
+}
+
+.app-shell-public-home .pf-feature-card:hover {
+  background: #ffffff !important;
+  border-color: var(--lt-navy-mid) !important;
+  box-shadow: 0 2px 4px rgba(15, 47, 86, 0.06), 0 8px 20px rgba(15, 47, 86, 0.06) !important;
+}
+
+.app-shell-public-home .pf-feature-icon {
+  background: var(--lt-navy-light) !important;
+  border-color: var(--lt-navy-mid) !important;
+}
+
+.app-shell-public-home .pf-feature-title {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-feature-text {
+  color: var(--lt-muted) !important;
+}
+
+/* ── Categories section ──────────────────────────────────── */
+.app-shell-public-home .pf-cat-card {
+  border-top: 3px solid var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-cat-card::before {
+  display: none !important;
+}
+
+.app-shell-public-home .pf-cat-card strong {
+  color: var(--lt-ink) !important;
+}
+
+.app-shell-public-home .pf-cat-card p {
+  color: var(--lt-muted) !important;
+}
+
+/* ── FAQ section ─────────────────────────────────────────── */
+.app-shell-public-home .pf-faq-item {
+  border-left: 3px solid transparent !important;
+  border-top: 0 !important;
+  transition: border-color 0.18s ease !important;
+}
+
+.app-shell-public-home .pf-faq-item.open {
+  border-left-color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-faq-question {
+  background: transparent !important;
+  color: var(--lt-ink) !important;
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.app-shell-public-home .pf-faq-question:hover {
+  background: transparent !important;
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-faq-chevron {
+  color: var(--lt-navy) !important;
+}
+
+.app-shell-public-home .pf-faq-answer {
+  color: var(--lt-muted) !important;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* ── Contact section ─────────────────────────────────────── */
+.app-shell-public-home .pf-office-chips {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  max-height: clamp(12rem, 24vh, 18rem);
+  overflow: auto;
+  padding-right: 0.25rem;
+  scrollbar-gutter: stable;
+}
+
+.app-shell-public-home .pf-office-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.75rem;
+  border-radius: 0;
+  border: 1px solid var(--lt-border);
+  background: var(--lt-surface-2);
+  color: var(--lt-ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ── CTA section ─────────────────────────────────────────── */
+.app-shell-public-home .pf-stage-cta > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell-public-home .pf-cta-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem 3rem;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3.2vw, 2.5rem);
+}
+
+.app-shell-public-home .pf-cta-kicker {
+  display: inline-flex;
+  padding: 0 0 0 0.7rem;
+  background: transparent;
+  border-left: 3px solid var(--lt-gold);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+.app-shell-public-home .pf-cta-title {
+  margin: 0 0 0.85rem;
+  color: #ffffff;
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 24ch;
+}
+
+.app-shell-public-home .pf-cta-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  max-width: 48ch;
+}
+
+.app-shell-public-home .pf-cta-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.app-shell-public-home .pf-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  align-items: stretch;
+  min-width: 14rem;
+  justify-content: flex-start !important;
+}
+
+.app-shell-public-home .pf-cta-note {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  max-width: 22ch;
+}
+
+.app-shell-public-home .pf-btn-white {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+  color: var(--lt-navy) !important;
+  border: 0 !important;
+  font-weight: 800;
+  box-shadow: none !important;
+  letter-spacing: 0.01em;
+  min-height: 3rem;
+  padding: 0.78rem 1.4rem;
+}
+
+.app-shell-public-home .pf-btn-white:hover {
+  background: var(--lt-surface-2) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.app-shell-public-home .pf-btn-white-outline {
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-weight: 700;
+  min-height: 3rem;
+  padding: 0.78rem 1.4rem;
+  backdrop-filter: none !important;
+}
+
+.app-shell-public-home .pf-btn-white-outline:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  transform: none !important;
+}
+
+@media (max-width: 900px) {
+  .app-shell-public-home .pf-cta-panel {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .app-shell-public-home .pf-cta-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.app-shell-public-home .pf-footer::before {
+  display: none !important;
+}
+
+.app-shell-public-home .pf-footer-mark {
+  border-radius: 0 !important;
+}
+
+.app-shell-public-home .pf-footer-inner {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.app-shell-public-home .pf-footer-name {
+  color: var(--pf-setting-primary-text, #111827) !important;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.app-shell-public-home .pf-footer-heading {
+  color: var(--pf-setting-primary-text, #111827) !important;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.app-shell-public-home .pf-footer-desc {
+  color: var(--pf-setting-secondary-text, #374151) !important;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.app-shell-public-home .pf-footer-link {
+  color: var(--pf-setting-primary-text, #111827) !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 1 !important;
+}
+
+.app-shell-public-home .pf-footer-link:hover {
+  color: var(--lt-navy) !important;
+  opacity: 1 !important;
+}
+
+.app-shell-public-home .pf-footer-bottom {
+  border-top-color: rgba(18, 35, 58, 0.12) !important;
+  padding-top: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.app-shell-public-home .pf-footer-copy {
+  color: var(--pf-setting-secondary-text, #374151) !important;
+  font-size: 0.82rem;
+}
+
+/* ── Pill status badges cleanup ──────────────────────────── */
+.app-shell-public-home .pf-pill-open {
+  background: rgba(26, 143, 87, 0.1) !important;
+  border-color: rgba(26, 143, 87, 0.22) !important;
+  color: #1a6a45 !important;
+}
+
+.app-shell-public-home .pf-pill-upcoming {
+  background: rgba(180, 130, 20, 0.1) !important;
+  border-color: rgba(180, 130, 20, 0.22) !important;
+  color: #7d5a0a !important;
+}
+
+.app-shell-public-home .pf-pill-closed {
+  background: rgba(160, 48, 48, 0.1) !important;
+  border-color: rgba(160, 48, 48, 0.22) !important;
+  color: #842424 !important;
+}
+
+/* ── Animation kill ──────────────────────────────────────── */
+/* Decorative stage animations suppressed for formal feel */
+.app-shell-public-home .pf-stage-glow,
+.app-shell-public-home .pf-stage-bubbles,
+.app-shell-public-home .pf-stage-backdrop::after,
+.app-shell-public-home .pf-stage-vector {
+  display: none !important;
+}
+
+/* Keep the marquee animation but ensure category chip style */
+.app-shell-public-home .pf-hero-grid-bg {
+  display: none !important;
+}

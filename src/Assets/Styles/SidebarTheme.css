@@ -1,0 +1,94 @@
+/* Loaded after App.css so every role-specific sidebar theme uses the same formal styling. */
+.app-shell .dashboard-shell .sidebar,
+.app-shell .dashboard-shell .sidebar.sidebar-admin,
+.app-shell .dashboard-shell .sidebar.sidebar-personnel,
+.app-shell .dashboard-shell .sidebar.sidebar-applicant,
+.app-shell .dashboard-shell .sidebar.sidebar-theme-captain-chain,
+.app-shell .dashboard-shell .sidebar.sidebar-theme-barangay-chain,
+.app-shell .dashboard-shell-staff.dashboard-theme-barangay-chain .sidebar,
+.app-shell .dashboard-shell-staff.dashboard-theme-captain-chain .sidebar {
+  background: var(--pf-setting-tertiary) !important;
+  background-color: var(--pf-setting-tertiary) !important;
+  background-image: none !important;
+  border-right: 1px solid color-mix(in srgb, var(--pf-setting-primary) 14%, transparent) !important;
+  box-shadow: none !important;
+  color: var(--pf-setting-primary-text) !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(
+  .brand-lockup,
+  .sidebar-brand-copy,
+  .sidebar-nav,
+  .sidebar-footer,
+  .sidebar-group,
+  .sidebar-group-items,
+  .nav-item,
+  .sidebar-group-toggle,
+  .sidebar-action-button,
+  span,
+  strong,
+  small,
+  svg
+) {
+  color: var(--pf-setting-primary-text) !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.brand-lockup, .nav-item, .sidebar-group-toggle, .sidebar-action-button) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item, .sidebar-group-toggle) {
+  border-radius: 14px !important;
+  min-height: 0 !important;
+  padding: 0.64rem 0.8rem !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item-icon, .sidebar-action-icon) {
+  background: color-mix(in srgb, var(--pf-setting-primary) 8%, transparent) !important;
+  border-color: color-mix(in srgb, var(--pf-setting-primary) 14%, transparent) !important;
+  border-radius: 13px !important;
+  color: var(--pf-setting-primary-text) !important;
+  height: 2.45rem !important;
+  min-width: 2.45rem !important;
+  width: 2.45rem !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item:hover, .sidebar-group-toggle:hover, .sidebar-action-button:hover) {
+  background: color-mix(in srgb, var(--pf-setting-primary) 7%, transparent) !important;
+  border-color: color-mix(in srgb, var(--pf-setting-primary) 14%, transparent) !important;
+  transform: none !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item),
+.app-shell .dashboard-shell-staff.dashboard-theme-barangay-chain .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item),
+.app-shell .dashboard-shell-staff.dashboard-theme-captain-chain .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item) {
+  background: var(--pf-setting-primary) !important;
+  background-color: var(--pf-setting-primary) !important;
+  background-image: none !important;
+  border-color: var(--pf-setting-primary) !important;
+  box-shadow: none !important;
+  color: var(--pf-setting-tertiary-text) !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item) :is(
+  span,
+  strong,
+  small,
+  svg,
+  .nav-item-label,
+  .nav-item-icon,
+  .sidebar-group-chevron
+),
+.app-shell .dashboard-shell-staff.dashboard-theme-barangay-chain .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item) :is(span, strong, small, svg, .nav-item-label, .nav-item-icon, .sidebar-group-chevron),
+.app-shell .dashboard-shell-staff.dashboard-theme-captain-chain .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item) :is(span, strong, small, svg, .nav-item-label, .nav-item-icon, .sidebar-group-chevron) {
+  color: var(--pf-setting-tertiary-text) !important;
+}
+
+.app-shell .dashboard-shell .sidebar :is(.nav-item.is-active, .sidebar-group-toggle.has-active-item) .nav-item-icon {
+  background: color-mix(in srgb, var(--pf-setting-tertiary) 16%, transparent) !important;
+  border-color: color-mix(in srgb, var(--pf-setting-tertiary) 24%, transparent) !important;
+}
